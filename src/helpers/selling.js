@@ -11,6 +11,7 @@ const uploadImage = async (image) => {
     const config = {
         method: 'POST',
         url: `${uri}agromarket/image/upload`,//ola
+        withCredentials: false,
         data,
     };
 
