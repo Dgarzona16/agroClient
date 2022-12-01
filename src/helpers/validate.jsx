@@ -25,8 +25,8 @@ export const CheckLogin = async (e) => {
         url: `${uri}auth/login`,
         headers: {
             'Content-Type': 'application/json',
+            whitCredentials: true,
         },
-        whitCredentials: true,
         data: data
     };
 
