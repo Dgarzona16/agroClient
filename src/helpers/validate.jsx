@@ -2,6 +2,7 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 
 export const Request = async (config) => {
+    axios.defaults.withCredentials = true;
     return await axios(config);
 };
 
@@ -25,8 +26,8 @@ export const CheckLogin = async (e) => {
         url: `${uri}auth/login`,
         headers: {
             'Content-Type': 'application/json',
-            whitCredentials: true,
         },
+        withCredentials: true,
         data: data
     };
 
