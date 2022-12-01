@@ -10,7 +10,7 @@ const profile = ({hook}) => {
         .then((data) => {
             setProfileData(data.user);
         })
-    },[]);
+    },[form]);
     return (
         <div className='profile'>
             <img className='profile-img' src={profileData.image} alt="profile" />

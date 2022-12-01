@@ -61,7 +61,7 @@ export const changePassword = async (event) => {
         });
 
         if (result.isConfirmed) {
-            window.location.reload();
+            return;
         }
     }
 };
@@ -101,7 +101,7 @@ export const updateUser = async (event) => {
         });
 
         if (result.isConfirmed) {
-            window.location.reload();
+            return;
         }
     }
 };
