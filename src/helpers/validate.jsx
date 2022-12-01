@@ -1,31 +1,8 @@
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 export const Request = async (config) => {
-    try{
-        const response = await fetch(config.url, {
-            method: config.method,
-            headers: config.headers,
-            body: config.data
-        });
-
-        const data = await response.json();
-
-        if(response.status === 200){
-            return data;
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: data.message
-            });
-        }   
-    }catch(error){
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: error.message
-        });
-    }
+    return await axios(config);
 };
 
 export const CheckLogin = async (e) => {
@@ -54,8 +31,11 @@ export const CheckLogin = async (e) => {
     };
 
     try{
-        await Request(config);
-        return true;
+        const res = await Request(config);
+        if (res){
+            console.log(res);
+            return true;
+        }
     }catch(error){
         const modalresult = await Swal.fire({
             icon: 'error',

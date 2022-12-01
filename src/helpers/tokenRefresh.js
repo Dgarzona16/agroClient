@@ -9,12 +9,8 @@ export const tokenRefresh = async () => {
         withCredentials: true,
     }
     try {
-        const response = await fetch(config.url, {
-            method: config.method,
-            credentials: 'include',
-        });
-        const data = await response.json();
-        return data.token;
+        const response = await axios(config);
+        return response.data.token;
     }
     catch (error) {
         return false;
