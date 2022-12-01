@@ -22,7 +22,8 @@ export const CheckLogin = async (e) => {
     });
     const config = {
         method: 'post',
-        url: `${uri}auth/login`,
+        //url: `${uri}auth/login`,
+        url: `auth/login`,
         headers: {
             'Content-Type': 'application/json',
         },

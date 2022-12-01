@@ -8,7 +8,8 @@ const path = (type, categoryID) => {
     //get path
     switch (type) {
         case 'home':
-            return `${uri}products/all`;
+            //return `${uri}products/all`;
+            return `products/all`;
         case 'user':
             return `${uri}products/user/ownproducts`;
         case 'category':
