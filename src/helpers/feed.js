@@ -8,8 +8,7 @@ const path = (type, categoryID) => {
     //get path
     switch (type) {
         case 'home':
-            //return `${uri}products/all`;
-            return `products/all`;
+            return `${uri}products/all`;
         case 'user':
             return `${uri}products/user/ownproducts`;
         case 'category':
@@ -35,7 +34,7 @@ export const getFeed = async (type, categoryID) => {
             return response.data;
         }
         else {
-            window.location.href = '/';
+            //window.location.href = '/';
         }
     } catch (error) {
         console.log(error);

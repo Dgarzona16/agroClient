@@ -9,7 +9,7 @@ import { Routes } from './helpers/routes.helper';
 import Axios from 'axios';
 //#endregion
 
-Axios.defaults.baseURL = 'https://agromarket-production.up.railway.app/api/v1/';
+//Axios.defaults.baseURL = 'http://localhost:3000';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
