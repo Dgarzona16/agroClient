@@ -1,8 +1,31 @@
 import Swal from 'sweetalert2';
-import axios from 'axios';
 
 export const Request = async (config) => {
-    return await axios(config);
+    try{
+        const response = await fetch(config.url, {
+            method: config.method,
+            headers: config.headers,
+            body: config.body
+        });
+
+        const data = await response.json();
+
+        if(response.status === 200){
+            return data;
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: data.message
+            });
+        }   
+    }catch(error){
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.message
+        });
+    }
 };
 
 export const CheckLogin = async (e) => {
