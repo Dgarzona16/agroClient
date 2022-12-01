@@ -7,6 +7,7 @@ export const tokenRefresh = async () => {
         url: `${uri}auth/refresh`,	
         method: 'GET',
         Credential: 'include',
+        withCredentials: true,
     }
     try {
         const response = await axios(config);

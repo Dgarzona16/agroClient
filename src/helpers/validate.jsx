@@ -27,6 +27,7 @@ export const CheckLogin = async (e) => {
             'Content-Type': 'application/json',
         },
         Credential: 'include',
+        whitCredentials: true,
         data: data
     };
 
