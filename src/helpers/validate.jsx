@@ -5,7 +5,7 @@ export const Request = async (config) => {
         const response = await fetch(config.url, {
             method: config.method,
             headers: config.headers,
-            body: config.body
+            body: config.data
         });
 
         const data = await response.json();
