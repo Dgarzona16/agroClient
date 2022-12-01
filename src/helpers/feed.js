@@ -31,7 +31,7 @@ export const getFeed = async (type, categoryID) => {
                 },
             };
             const response = await Request(config);
-            return response.data;
+            return response;
         }
         else {
             //window.location.href = '/';
