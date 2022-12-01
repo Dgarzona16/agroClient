@@ -10,7 +10,7 @@ const uploadImage = async (image) => {
     };
     const config = {
         method: 'POST',
-        url: `${uri}${import.meta.env.VITE_CLOUD_NAME}/image/upload`,
+        url: `${uri}agromarket/image/upload`,
         data,
     };
 
