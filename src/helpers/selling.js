@@ -10,7 +10,7 @@ const uploadImage = async (image) => {
     };
     const config = {
         method: 'POST',
-        url: `${uri}agromarket/image/upload`,
+        url: `${uri}agromarket/image/upload`,//ola
         data,
     };
 
