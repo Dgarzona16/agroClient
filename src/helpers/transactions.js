@@ -9,7 +9,7 @@ export const getTransactions = async () => {
             method: 'GET',
             url: `${uri}transactions/get`,
             headers: {
-                authorization: `Bearer ${restoke ? restoken : localStorage.getItem('token')}`,
+                authorization: `Bearer ${restoken ? restoken : localStorage.getItem('token')}`,
             }
         }
         const response = await Request(config);
