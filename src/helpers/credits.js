@@ -6,20 +6,17 @@ import Swal from 'sweetalert2';
 export const getCredits = async () => {
     try {
         const restoken = await tokenRefresh();
-        if (restoken) {
-            const uri = import.meta.env.VITE_AGRO_API;
-            const config = {
-                method: 'GET',
-                url: `${uri}credits/get`,
-                headers: {
-                    authorization: `Bearer ${restoken}`
-                }
+
+        const uri = import.meta.env.VITE_AGRO_API;
+        const config = {
+            method: 'GET',
+            url: `${uri}credits/get`,
+            headers: {
+                authorization: `Bearer ${restoken ? restoken : localStorage.getItem('token')}`,
             }
-            const response = await Request(config);
-            return response.data;
-        } else {
-            window.location.href = '/';
         }
+        const response = await Request(config);
+        return response.data;
     } catch (error) {
         console.log(error);
     }
@@ -36,31 +33,27 @@ export const addCreditsToUser = async () => {
     if (number) {
         try {
             const restoken = await tokenRefresh();
-            if (restoken) {
-                const amount = parseFloat(number);
-                const uri = import.meta.env.VITE_AGRO_API;
-                const config = {
-                    method: 'POST',
-                    url: `${uri}credits/add`,
-                    headers: {
-                        authorization: `Bearer ${restoken}`
-                    },
-                    data: {
-                        credits: amount,
-                    }
+            const amount = parseFloat(number);
+            const uri = import.meta.env.VITE_AGRO_API;
+            const config = {
+                method: 'POST',
+                url: `${uri}credits/add`,
+                headers: {
+                    authorization: `Bearer ${restoken ? restoken : localStorage.getItem('token')}`,
+                },
+                data: {
+                    credits: amount,
                 }
-                const response = await Request(config);
-                if (response) {
-                    const transaction = await addTransaction(amount, 'deposito');
-                    if (transaction) {
-                        return {
-                            credits: response.data.credits,
-                            transaction: transaction
-                        };
-                    }
+            }
+            const response = await Request(config);
+            if (response) {
+                const transaction = await addTransaction(amount, 'deposito');
+                if (transaction) {
+                    return {
+                        credits: response.data.credits,
+                        transaction: transaction
+                    };
                 }
-            } else {
-                window.location.href = '/';
             }
         }
         catch (error) {
@@ -79,29 +72,27 @@ export const substractCreditsFromUser = async () => {
 
     if (number) {
         const restoken = await tokenRefresh();
-        if (restoken) {
-            const amount = parseFloat(number);
-            const uri = import.meta.env.VITE_AGRO_API;
-            const config = {
-                method: 'POST',
-                url: `${uri}credits/substract`,
-                headers: {
-                    authorization: `Bearer ${restoken}`
-                },
-                data: {
-                    credits: amount,
-                }
+        const amount = parseFloat(number);
+        const uri = import.meta.env.VITE_AGRO_API;
+        const config = {
+            method: 'POST',
+            url: `${uri}credits/substract`,
+            headers: {
+                authorization: `Bearer ${restoken ? restoken : localStorage.getItem('token')}`,
+            },
+            data: {
+                credits: amount,
             }
-            const response = await Request(config);
-            if (response) {
-                const transaction = await addTransaction(amount, 'retiro');
-                if (transaction) {
-                    console.log(transaction);
-                    return {
-                        credits: response.data.credits,
-                        transaction: transaction
-                    };
-                }
+        }
+        const response = await Request(config);
+        if (response) {
+            const transaction = await addTransaction(amount, 'retiro');
+            if (transaction) {
+                console.log(transaction);
+                return {
+                    credits: response.data.credits,
+                    transaction: transaction
+                };
             }
         }
     }

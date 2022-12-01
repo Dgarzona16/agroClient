@@ -23,7 +23,7 @@ export const protectRoute = async () => {
     const restoken = await tokenRefresh();
 
     if (!restoken) {
-        window.location.href = '/';
+        //window.location.href = '/';
     }
 };
 
@@ -145,30 +145,26 @@ export const CreateProduct = async (event, image) => {
 
     try {
         const restoken = await tokenRefresh();
-        if (restoken) {
-            const config = {
-                method: 'POST',
-                url: `${uri}products/create`,
-                headers: {
-                    'Content-Type': 'application/json',
-                    authorization: `Bearer ${restoken}`
-                },
-                data: data
+        const config = {
+            method: 'POST',
+            url: `${uri}products/create`,
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${restoken? restoken : localStorage.getItem('token')}`
+            },
+            data: data
+        }
+        const response = await Request(config);
+        if (response) {
+            const modalresult = await Swal.fire({
+                title: 'Producto creado',
+                text: 'El producto se creo correctamente',
+                icon: 'success',
+                confirmButtonText: 'Aceptar',
+            });
+            if (modalresult.isConfirmed) {
+                return;
             }
-            const response = await Request(config);
-            if (response) {
-                const modalresult = await Swal.fire({
-                    title: 'Producto creado',
-                    text: 'El producto se creo correctamente',
-                    icon: 'success',
-                    confirmButtonText: 'Aceptar',
-                });
-                if (modalresult.isConfirmed) {
-                    return;
-                }
-            }
-        } else {
-            window.location.href = '/';
         }
     } catch (error) {
         alert(error);
@@ -199,30 +195,26 @@ export const UpdateProduct = async (event, image, product) => {
 
     try {
         const restoken = await tokenRefresh();
-        if (restoken) {
-            const config = {
-                method: 'PATCH',
-                url: `${uri}products/update/${product._id}`,
-                headers: {
-                    'Content-Type': 'application/json',
-                    authorization: `Bearer ${restoken}`
-                },
-                data: data
+        const config = {
+            method: 'PATCH',
+            url: `${uri}products/update/${product._id}`,
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${restoken ? restoken : localStorage.getItem('token')}`
+            },
+            data: data
+        }
+        const response = await Request(config);
+        if (response) {
+            const modalresult = await Swal.fire({
+                title: 'Producto actualizado',
+                text: 'El producto se actualizo correctamente',
+                icon: 'success',
+                confirmButtonText: 'Aceptar',
+            });
+            if (modalresult.isConfirmed) {
+                return;
             }
-            const response = await Request(config);
-            if (response) {
-                const modalresult = await Swal.fire({
-                    title: 'Producto actualizado',
-                    text: 'El producto se actualizo correctamente',
-                    icon: 'success',
-                    confirmButtonText: 'Aceptar',
-                });
-                if (modalresult.isConfirmed) {
-                    return;
-                }
-            }
-        } else {
-            window.location.href = '/';
         }
     } catch (error) {
         alert(error);

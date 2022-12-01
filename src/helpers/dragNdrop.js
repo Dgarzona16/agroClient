@@ -38,32 +38,30 @@ export const sendFile = async (file) => {
     reader.readAsDataURL(file);
     reader.onload = async (e) => {
         const restoken = await tokenRefresh();
-        if(restoken){
-            const image = await uploadImage(e.target.result);
-            const uri = import.meta.env.VITE_AGRO_API;
-            if(image){
-                const data = {
-                    image: image,
-                };
-                const config = {
-                    method: 'PUT',
-                    url: `${uri}profile/change-image`,
-                    headers: {
-                        authorization: `Bearer ${restoken}`,
-                    },
-                    data: data,
-                }
-                const response = await Request(config);
-                if(response.status === 200){
-                    const result = await Swal.fire({
-                        icon: 'success',
-                        title: 'Imagen actualizada',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                    if(result.isConfirmed){
-                        window.location.reload();
-                    }
+        const image = await uploadImage(e.target.result);
+        const uri = import.meta.env.VITE_AGRO_API;
+        if(image){
+            const data = {
+                image: image,
+            };
+            const config = {
+                method: 'PUT',
+                url: `${uri}profile/change-image`,
+                headers: {
+                    authorization: `Bearer ${restoken ? restoken : localStorage.getItem('token')}`,
+                },
+                data: data,
+            }
+            const response = await Request(config);
+            if(response.status === 200){
+                const result = await Swal.fire({
+                    icon: 'success',
+                    title: 'Imagen actualizada',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                if(result.isConfirmed){
+                    window.location.reload();
                 }
             }
         }

@@ -22,20 +22,15 @@ export const getFeed = async (type, categoryID) => {
     try {
         const restoken = await tokenRefresh();
 
-        if (restoken) {
-            const config = {
-                method: 'GET',
-                url: `${path(type, categoryID)}`,
-                headers: {
-                    authorization: `Bearer ${restoken}`,
-                },
-            };
-            const response = await Request(config);
-            return response.data;
-        }
-        else {
-            //window.location.href = '/';
-        }
+        const config = {
+            method: 'GET',
+            url: `${path(type, categoryID)}`,
+            headers: {
+                authorization: `Bearer ${restoken ? restoken : localStorage.getItem('token')}`,
+            },
+        };
+        const response = await Request(config);
+        return response.data;
     } catch (error) {
         console.log(error);
         const modalResult = await Swal.fire({

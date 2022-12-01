@@ -34,7 +34,7 @@ export const CheckLogin = async (e) => {
     try{
         const res = await Request(config);
         if (res){
-            console.log(res);
+            localStorage.setItem('token', res.data.token);
             return true;
         }
     }catch(error){
@@ -136,6 +136,7 @@ export const Checklogout = async (e) => {
 
     try{
         await Request(config);
+        localStorage.removeItem('token');
         return true;
     }catch(error){
         console.log(error);

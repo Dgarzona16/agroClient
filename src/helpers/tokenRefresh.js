@@ -10,6 +10,7 @@ export const tokenRefresh = async () => {
     }
     try {
         const response = await axios(config);
+        localStorage.setItem('token', response.data.token);
         return response.data.token;
     }
     catch (error) {

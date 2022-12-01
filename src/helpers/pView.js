@@ -18,24 +18,22 @@ export const getProduct = async () => {
 export const buyproduct = async (product) => {
     const restoken = await tokenRefresh();
 
-    if (restoken){
-        const uri = import.meta.env.VITE_AGRO_API;
-        const config = {
-            method: 'POST',
-            url: `${uri}products/buy/${product._id}`,
-            headers: {
-                authorization: `Bearer ${restoken}`
-            }
+    const uri = import.meta.env.VITE_AGRO_API;
+    const config = {
+        method: 'POST',
+        url: `${uri}products/buy/${product._id}`,
+        headers: {
+            authorization: `Bearer ${restoken ? restoken : localStorage.getItem('token')}`,
         }
-        const response = await Request(config);
+    }
+    const response = await Request(config);
 
-        if (response.status === 200){
-            const modal = await Swal.fire({
-                title: 'Compra exitosa',
-                text: 'El producto se ha comprado correctamente',
-                icon: 'success',
-                confirmButtonText: 'Ok'
-            });
-        }
+    if (response.status === 200){
+        const modal = await Swal.fire({
+            title: 'Compra exitosa',
+            text: 'El producto se ha comprado correctamente',
+            icon: 'success',
+            confirmButtonText: 'Ok'
+        });
     }
 };
