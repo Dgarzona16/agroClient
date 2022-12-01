@@ -5,6 +5,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
+    "start": "npx http-server ./dist",
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview"
